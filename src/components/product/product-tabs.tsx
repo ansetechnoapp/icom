@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Star, ThumbsUp, ThumbsDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { cn } from "@/lib/utils";
+import { Button } from "../../components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs";
+import { cn } from "../../lib/utils";
 
 interface Specification {
   name: string;
@@ -50,12 +50,13 @@ export function ProductTabs({
 }: ProductTabsProps) {
   const [activeTab, setActiveTab] = useState("description");
 
-  const averageRating =
-    reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
+  const averageRating = reviews.length > 0
+    ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
+    : 0;
 
   const ratingCounts = Array.from({ length: 5 }, (_, i) => {
     const count = reviews.filter((review) => review.rating === 5 - i).length;
-    const percentage = (count / reviews.length) * 100;
+    const percentage = reviews.length > 0 ? (count / reviews.length) * 100 : 0;
     return { rating: 5 - i, count, percentage };
   });
 
@@ -117,8 +118,8 @@ export function ProductTabs({
                       i < Math.floor(averageRating)
                         ? "fill-yellow-400 text-yellow-400"
                         : i < averageRating
-                        ? "fill-yellow-400/50 text-yellow-400"
-                        : "fill-muted text-muted"
+                          ? "fill-yellow-400/50 text-yellow-400"
+                          : "fill-muted text-muted"
                     )}
                   />
                 ))}

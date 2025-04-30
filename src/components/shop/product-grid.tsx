@@ -3,16 +3,16 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Grid, List, ArrowUpDown, ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ProductCard } from "@/components/ui/product-card";
+import { Button } from "../../components/ui/button";
+import { ProductCard } from "../../components/ui/product-card";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { cn } from "@/lib/utils";
+} from "../../components/ui/select";
+import { cn } from "../../lib/utils";
 
 interface Product {
   id: string;

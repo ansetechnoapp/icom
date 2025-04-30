@@ -1,10 +1,12 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaClient } from "@prisma/client";
+import { compare } from "bcrypt";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
-import { compare } from "bcrypt";
-import { prisma } from "./prisma";
+
+const prisma = new PrismaClient();
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -15,17 +17,16 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/login",
     signOut: "/auth/logout",
     error: "/auth/error",
-    verifyRequest: "/auth/verify-request",
-    newUser: "/auth/new-user",
+    newUser: "/auth/register",
   },
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     }),
     FacebookProvider({
-      clientId: process.env.FACEBOOK_CLIENT_ID!,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
+      clientId: process.env.FACEBOOK_CLIENT_ID || "",
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET || "",
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -69,12 +70,9 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async session({ session, token }) {
-      if (token) {
+      if (token && session.user) {
         session.user.id = token.id as string;
-        session.user.name = token.name;
-        session.user.email = token.email;
-        session.user.image = token.picture;
-        session.user.role = token.role as string;
+        session.user.role = token.role as "USER" | "ADMIN";
       }
       return session;
     },
@@ -87,3 +85,5 @@ export const authOptions: NextAuthOptions = {
     },
   },
 };
+
+export default authOptions;

@@ -2,15 +2,15 @@
 
 import { useState } from "react";
 import { Filter } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "../../components/ui/button";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { FilterSidebar } from "@/components/shop/filter-sidebar";
+} from "../../components/ui/sheet";
+import { FilterSidebar } from "./filter-sidebar";
 
 interface FilterOption {
   id: string;

@@ -4,11 +4,11 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Filter, X, ChevronDown, ChevronUp } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
+import { Button } from "../../components/ui/button";
+import { Slider } from "../../components/ui/slider";
+import { Checkbox } from "../../components/ui/checkbox";
+import { Label } from "../../components/ui/label";
+import { cn } from "../../lib/utils";
 
 interface FilterOption {
   id: string;
@@ -48,13 +48,13 @@ export function FilterSidebar({
 }: FilterSidebarProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  
+
   const [expandedGroups, setExpandedGroups] = useState<string[]>([
     "categories",
     "brands",
     "price",
   ]);
-  
+
   const [selectedPrice, setSelectedPrice] = useState<[number, number]>([
     priceRange.min,
     priceRange.max,

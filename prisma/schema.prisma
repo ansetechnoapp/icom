@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -51,97 +51,6 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
-}
-
-model Product {
-  id          String    @id @default(cuid())
-  name        String
-  description String
-  price       Float
-  stock       Int
-  images      String[]
-  categoryId  String
-  category    Category  @relation(fields: [categoryId], references: [id])
-  brandId     String
-  brand       Brand     @relation(fields: [brandId], references: [id])
-  orders      OrderItem[]
-  reviews     Review[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-}
-
-model Category {
-  id        String    @id @default(cuid())
-  name      String
-  parentId  String?
-  parent    Category? @relation("CategoryRelations", fields: [parentId], references: [id])
-  children  Category[] @relation("CategoryRelations")
-  products  Product[]
-}
-
-model Brand {
-  id        String    @id @default(cuid())
-  name      String
-  logo      String?
-  products  Product[]
-}
-
-model Order {
-  id          String      @id @default(cuid())
-  userId      String
-  user        User        @relation(fields: [userId], references: [id])
-  items       OrderItem[]
-  total       Float
-  status      OrderStatus @default(PENDING)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-}
-
-model OrderItem {
-  id         String   @id @default(cuid())
-  productId  String
-  product    Product  @relation(fields: [productId], references: [id])
-  orderId    String
-  order      Order    @relation(fields: [orderId], references: [id])
-  quantity   Int
-  price      Float
-}
-
-enum OrderStatus {
-  PENDING
-  PROCESSING
-  SHIPPED
-  DELIVERED
-  CANCELLED
-}
-
-model Review {
-  id         String   @id @default(cuid())
-  productId  String
-  product    Product  @relation(fields: [productId], references: [id])
-  userId     String
-  user       User     @relation(fields: [userId], references: [id])
-  rating     Int
-  comment    String?
-  createdAt  DateTime @default(now())
-}
-
-model Cart {
-  id        String     @id @default(cuid())
-  userId    String
-  user      User       @relation(fields: [userId], references: [id])
-  items     CartItem[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-}
-
-model CartItem {
-  id        String   @id @default(cuid())
-  cartId    String
-  cart      Cart     @relation(fields: [cartId], references: [id])
-  productId String
-  product   Product  @relation(fields: [productId], references: [id])
-  quantity  Int      @default(1)
 }
 
 model Session {
@@ -245,78 +154,55 @@ model ProductSpec {
 
 // Order related models
 model Order {
-  id              String    @id @default(cuid())
+  id              String      @id @default(cuid())
   userId          String
-  user            User      @relation(fields: [userId], references: [id])
-  status          OrderStatus @default(PENDING)
-  total           Decimal   @db.Decimal(10, 2)
-  shippingAddress Json
-  paymentMethod   String
-  paymentIntentId String?
-  shippingMethod  String
-  shippingCost    Decimal   @db.Decimal(10, 2)
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-
+  user            User        @relation(fields: [userId], references: [id])
   items           OrderItem[]
+  total           Decimal     @db.Decimal(10, 2)
+  status          OrderStatus @default(PENDING)
+  shippingAddress Json?
+  paymentIntentId String?     @unique
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
 }
 
 model OrderItem {
-  id          String    @id @default(cuid())
-  orderId     String
-  order       Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  productId   String
-  product     Product   @relation(fields: [productId], references: [id])
-  quantity    Int
-  price       Decimal   @db.Decimal(10, 2)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-}
-
-// Review model
-model Review {
-  id          String    @id @default(cuid())
-  userId      String
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  productId   String
-  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
-  rating      Int
-  comment     String?   @db.Text
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id         String   @id @default(cuid())
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id])
+  orderId    String
+  order      Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  quantity   Int
+  price      Decimal  @db.Decimal(10, 2)
 }
 
 // Cart related models
 model Cart {
-  id          String    @id @default(cuid())
-  userId      String    @unique
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  items       CartItem[]
+  id        String     @id @default(cuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model CartItem {
-  id          String    @id @default(cuid())
-  cartId      String
-  cart        Cart      @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  productId   String
-  product     Product   @relation(fields: [productId], references: [id])
-  quantity    Int
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id        String   @id @default(cuid())
+  cartId    String
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int      @default(1)
 }
 
 // Wishlist related models
 model Wishlist {
-  id          String    @id @default(cuid())
-  userId      String    @unique
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  items       WishlistItem[]
+  id        String          @id @default(cuid())
+  userId    String          @unique
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     WishlistItem[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
 }
 
 model WishlistItem {
@@ -326,10 +212,21 @@ model WishlistItem {
   productId   String
   product     Product   @relation(fields: [productId], references: [id])
   createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
 }
 
-// Enums
+// Review model
+model Review {
+  id         String   @id @default(cuid())
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rating     Int
+  comment    String?  @db.Text
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
 enum Role {
   USER
   ADMIN
@@ -341,33 +238,4 @@ enum OrderStatus {
   SHIPPED
   DELIVERED
   CANCELLED
-}
-
-model Review {
-  id         String   @id @default(cuid())
-  productId  String
-  product    Product  @relation(fields: [productId], references: [id])
-  userId     String
-  user       User     @relation(fields: [userId], references: [id])
-  rating     Int
-  comment    String?
-  createdAt  DateTime @default(now())
-}
-
-model Cart {
-  id        String     @id @default(cuid())
-  userId    String
-  user      User       @relation(fields: [userId], references: [id])
-  items     CartItem[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-}
-
-model CartItem {
-  id        String   @id @default(cuid())
-  cartId    String
-  cart      Cart     @relation(fields: [cartId], references: [id])
-  productId String
-  product   Product  @relation(fields: [productId], references: [id])
-  quantity  Int      @default(1)
 }

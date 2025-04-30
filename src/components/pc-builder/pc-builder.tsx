@@ -5,11 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Plus, X, AlertTriangle, Check, Share2, Save, ShoppingCart } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { ComponentSelector } from "@/components/pc-builder/component-selector";
-import { cn } from "@/lib/utils";
+import { Button } from "../../components/ui/button";
+import { Progress } from "../../components/ui/progress";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../components/ui/tooltip";
+import { ComponentSelector } from "../../components/pc-builder/component-selector";
+import { cn } from "../../lib/utils";
 
 interface Component {
   id: string;
@@ -429,44 +429,3 @@ export function PCBuilder() {
     </div>
   );
 }
-
-// In the component display section
-{component ? (
-  <div className="mt-1 flex items-center justify-between">
-    <div className="flex items-center gap-2">
-      <div className="relative h-8 w-8 overflow-hidden rounded-md bg-muted">
-        <Image
-          src={component.image}
-          alt={component.name}
-          fill
-          className="object-cover"
-        />
-      </div>
-      <span className="text-sm">{component.name}</span>
-    </div>
-    <div className="flex items-center gap-2">
-      <span className="font-medium">
-        {formatPrice(component.price)}
-      </span>
-      <Button
-        variant="ghost"
-        size="icon"
-        className="h-8 w-8 text-muted-foreground hover:text-destructive"
-        onClick={() => handleRemoveComponent(componentType.id)}
-      >
-        <X className="h-4 w-4" />
-      </Button>
-    </div>
-  ) : (
-    <p className="mt-1 text-sm text-muted-foreground">
-      No {componentType.name.toLowerCase()} selected
-    </p>
-  )}
-  {!component.inStock && (
-    <span className="flex items-center text-xs text-destructive">
-      <AlertTriangle className="mr-1 h-3 w-3" />
-      Out of Stock
-    </span>
-  )}
-  </div>
-) : null}

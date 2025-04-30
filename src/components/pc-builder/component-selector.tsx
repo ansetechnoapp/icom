@@ -4,16 +4,16 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { X, Search, SlidersHorizontal, Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetClose,
-} from "@/components/ui/sheet";
-import { cn } from "@/lib/utils";
+} from "../../components/ui/sheet";
+import { cn } from "../../lib/utils";
 
 interface Component {
   id: string;

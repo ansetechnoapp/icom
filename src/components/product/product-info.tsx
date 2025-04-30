@@ -140,7 +140,7 @@ export function ProductInfo({
 
       <div className="mb-6">
         <div className="flex items-center gap-2">
-          {isOnSale ? (
+          {isOnSale && salePrice ? (
             <>
               <span className="text-3xl font-bold text-primary">
                 ${salePrice.toFixed(2)}
@@ -208,7 +208,7 @@ export function ProductInfo({
                       disabled={!option.inStock}
                     >
                       {option.name}
-                      {option.price && ` (+$${option.price.toFixed(2)})`}
+                      {option.price !== undefined && option.price !== null && ` (+$${option.price.toFixed(2)})`}
                       {!option.inStock && " - Out of Stock"}
                     </SelectItem>
                   ))}

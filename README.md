@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# iCome Hardware E-commerce Website
+
+A modern e-commerce website for computer hardware built with Next.js, TypeScript, Tailwind CSS, and Shadcn UI.
+
+## Features
+
+- Next.js 15 with App Router
+- TypeScript for type safety
+- Tailwind CSS for styling
+- Shadcn UI for components
+- Prisma with PostgreSQL for database
+- Next Auth for authentication
+- Stripe for payment processing
+- Framer Motion for animations
+
+## Project Structure
+
+- `app/` - App Router routes
+- `src/components/` - UI components organized by category
+- `src/lib/` - Utility functions and configuration
+- `src/models/` - TypeScript types and interfaces
+- `prisma/` - Database schema and migrations
+- `public/` - Static assets
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ and npm
+- PostgreSQL database
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/icome.git
+cd icome
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Create a `.env` file based on `.env.example`:
+```bash
+# Database
+DATABASE_URL="postgresql://user:password@localhost:5432/icome"
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Next Auth
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-nextauth-secret"
 
-## Learn More
+# OAuth Providers
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+FACEBOOK_CLIENT_ID="your-facebook-client-id"
+FACEBOOK_CLIENT_SECRET="your-facebook-client-secret"
 
-To learn more about Next.js, take a look at the following resources:
+# Stripe
+STRIPE_SECRET_KEY="your-stripe-secret-key"
+STRIPE_WEBHOOK_SECRET="your-stripe-webhook-secret"
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="your-stripe-publishable-key"
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Run database migrations:
+```bash
+npx prisma migrate dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. Start the development server:
+```bash
+npm run dev
+```
 
-## Deploy on Vercel
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Main Features
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- User authentication with email/password, Google, and Facebook
+- Product browsing and filtering
+- Shopping cart and checkout
+- Order tracking
+- User dashboard
+- PC Builder tool for custom configurations
+- Responsive design for mobile and desktop
+- Admin panel for product management (coming soon)
+
+## Deployment
+
+This project is configured for deployment on Vercel.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/icome)
+
+## License
+
+This project is licensed under the MIT License.

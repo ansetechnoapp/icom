@@ -127,10 +127,10 @@ export function ProductCard({ product, className }: ProductCardProps) {
 
       <div className="mt-auto flex items-center justify-between">
         <div className="flex items-center gap-2">
-          {isOnSale ? (
+          {isOnSale && product.salePrice ? (
             <>
               <span className="text-lg font-bold text-primary">
-                ${product.salePrice?.toFixed(2)}
+                ${product.salePrice.toFixed(2)}
               </span>
               <span className="text-sm text-muted-foreground line-through">
                 ${product.price.toFixed(2)}

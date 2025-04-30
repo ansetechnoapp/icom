@@ -81,7 +81,7 @@ export function ImageGallery({
                   isZoomed && "scale-150"
                 )}
                 style={
-                  isZoomed
+                  isZoomed && zoomPosition
                     ? {
                         transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
                       }
