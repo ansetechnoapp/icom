@@ -2,9 +2,9 @@
 
 import * as React from "react";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 const forgotPasswordSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -30,7 +30,7 @@ export function ForgotPasswordForm() {
       // In a real application, you would call an API endpoint to send a password reset email
       // For now, we'll just simulate a successful response
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      
+
       setSuccess(true);
     } catch (error) {
       if (error instanceof z.ZodError) {
