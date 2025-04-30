@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120px" height="60px" viewBox="0 0 120 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Brand Placeholder</title>
+    <g id="Brand" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Background" fill="#E5E7EB" x="0" y="0" width="120" height="60" rx="4"></rect>
+        <text id="Brand-Logo" font-family="Arial-BoldMT, Arial" font-size="16" font-weight="bold" fill="#6B7280">
+            <tspan x="20" y="36">Brand Logo</tspan>
+        </text>
+    </g>
+</svg>

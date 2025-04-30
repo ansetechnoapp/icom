@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Category Placeholder</title>
+    <g id="Category" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Background" fill="#6366F1" x="0" y="0" width="200" height="200"></rect>
+        <text id="Category-Image" font-family="Arial-BoldMT, Arial" font-size="24" font-weight="bold" fill="#FFFFFF">
+            <tspan x="30" y="110">Category</tspan>
+            <tspan x="50" y="140">Image</tspan>
+        </text>
+    </g>
+</svg>

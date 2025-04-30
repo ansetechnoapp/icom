@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200px" height="500px" viewBox="0 0 1200 500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Hero Placeholder</title>
+    <g id="Hero" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Background" fill="#4F46E5" x="0" y="0" width="1200" height="500"></rect>
+        <text id="Hero-Image-Placeholder" font-family="Arial-BoldMT, Arial" font-size="48" font-weight="bold" fill="#FFFFFF">
+            <tspan x="300" y="260">Hero Image Placeholder</tspan>
+        </text>
+    </g>
+</svg>
